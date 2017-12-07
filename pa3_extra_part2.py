@@ -17,7 +17,7 @@ print '\n -- Tweets that have at least one emoji --'
 # B. Find the tweets that have at least one emoji in them.
 emoji_count = {} # key: emoji, value: number of occurrence of this emoji
 emoji_in_MA = {} # key: emoji, value: number of occurrence of this emoji in MA
-state_count = {} # key: state, value: number of occurrence of the 'christmas tree' emoji in this state
+state_count = {} # key: state, value: number of occurrence of the 'Christmas tree' emoji in this state
 emoji_used = {} # key: state, value: number of emojis used in this state
 tweets_per_state = {} # key: state, value: number of tweets from this state
 tweets_per_city = {} # key: city in California, value: number of tweets from this city
@@ -74,8 +74,8 @@ for tweet in tweets.find():
                     emoji_used[state] = 1
                 else:
                     emoji_used[state] += 1
-        # if flag:
-        #     print text # print the text of a tweet
+        if flag:
+            print text # print the text of a tweet
 
 # 1. What are the top 15 emojis used in the entire tweets?
 
@@ -124,14 +124,6 @@ for k, v in emoji_used.items():
 # C. Use MongoDB queries within PyMongo API to answer the following.
 
 # 1. What are the top 5 states that have tweets?
-
-'''
-db.usa_tweets_collection.aggregate( [
-    { $match: { "place.full_name": { $regex: "^.+, [A-Z]{2}$" } } },
-    { $group: { _id: { $arrayElemAt: [ { $split: [ "$place.full_name", ", " ] }, 1 ] }, cnt: { $sum: 1 } } },
-    { $sort: { cnt: -1 } }
-] )
-'''
 
 print '\n -- Top 5 states that have tweets --'
 tweets_per_state = OrderedDict(sorted(tweets_per_state.items(), key=lambda x: x[1], reverse=True)) # sort the dict by values, in descending order
