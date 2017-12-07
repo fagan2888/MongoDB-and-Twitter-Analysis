@@ -1,0 +1,37 @@
+CS 660 - Introduction to Database Systems
+PA3: NoSQL Databases
+Due: Tuesday, Dec 12, 2017
+
+Name: Zuoqi Zhang (zqzhang@bu.edu)
+BU ID: U98670811
+
+-- 1. Find the restaurant ID of "Caffe Dante".
+> db.restaurants.find({"name": "Caffe Dante"}, {"restaurant_id": 1, "_id": 0})
+
+-- 2. Find all restaurants whose name has "Ice Cream" in it, return only the restaurant’s ids and names.
+> db.restaurants.find({"name": /.*Ice Cream.*/}, {"restaurant_id": 1, "name": 1, "_id": 0})
+
+-- 3. Find the names of all restaurants that serve either Italian or American cuisine and are located in the Brooklyn borough.
+> db.restaurants.distinct("name", {"cuisine": {$in: ["Italian", "American"]}, "borough": "Brooklyn"})
+
+-- 4. Return the list of boroughs ranked by the number of American restaurants in it. That is, for each borough, find how many restaurants serve American cuisine and print the borough and the number of such restaurants sorted by this number.
+db.restaurants.aggregate( [
+	{ $match: { "cuisine": "American" } },
+	{ $group: { _id: "$borough", cnt: { $sum: 1 } } },
+	{ $sort: { cnt: -1 } }
+] )
+
+-- 5. Find the top 5 American restaurants in Manhattan that have the highest total score. Return for each restaurant the restaurants’ name and the total score. Hint: You can use "$unwind".
+db.restaurants.aggregate( [
+	{ $unwind: "$grades" },
+	{ $match: { "cuisine": "American", "borough": "Manhattan" } },
+	{ $group: { _id: "$name", total_score: { $sum: "$grades.score" } } },
+	{ $sort: { total_score: -1 } },
+	{ $limit: 5 }
+] )
+
+-- 6. Consider a rectangle area on the location field, in which the vertices are [ -74 , 40.5 ] , [ -74 , 40.7 ] , [ -73.5 , 40.5 ] and [ -73.5 , 40.7 ]. Find the number of restaurants in this area that have received a grade score (at least one) more than 50. Hint: Use the $geoWithin and $box.
+db.restaurants.find( {
+	"address.coord": { $geoWithin: { $box:  [ [ -74, 40.5 ], [ -73.5, 40.7 ] ] } },
+	"grades.score": { $gt: 50}
+} ).count()
