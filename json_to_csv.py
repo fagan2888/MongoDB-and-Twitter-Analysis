@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+# Created by Zuoqi Zhang on 2017/12/7.
+
 from pymongo import MongoClient
 import csv
 import os

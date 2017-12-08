@@ -12,9 +12,11 @@ db = client.usa_db
 tweets = db.usa_tweets_collection
 
 print 'Number of tweets in the database:', tweets.count()
-print '\n -- Tweets that have at least one emoji --'
 
 # B. Find the tweets that have at least one emoji in them.
+
+print '\n -- Tweets that have at least one emoji --'
+
 emoji_count = {} # key: emoji, value: number of occurrence of this emoji
 emoji_in_MA = {} # key: emoji, value: number of occurrence of this emoji in MA
 state_count = {} # key: state, value: number of occurrence of the 'Christmas tree' emoji in this state
