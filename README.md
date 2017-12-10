@@ -27,3 +27,6 @@
 	* Please create a `keys.txt` file which contains the keys and access tokens before you run the first two code files.
 	* For the map `emoji_of_state`, I draw a red icon for each state, if you click on it, you will see the top 2 emojis in this state.
 	* Since `draw_maps.py` needs to read all tweets from database, and calculate the occurrence of each emoji in each state, the code may take a while to finish, please wait until you see '**Two maps have been created.**' in the output.
+
+[http://www.cs.bu.edu/fac/gkollios/cs460f17/PA/PA3.htm](http://www.cs.bu.edu/fac/gkollios/cs460f17/PA/PA3.htm)
+[http://www.cs.bu.edu/fac/gkollios/cs460f17/PA/pa3extra.html](http://www.cs.bu.edu/fac/gkollios/cs460f17/PA/pa3extra.html)
